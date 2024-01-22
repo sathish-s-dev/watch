@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const Trending = () => {
 	const { data, isLoading } = useQuery({
-		queryKey: ['trendingMovies'],
+		queryKey: ['trending'],
 		queryFn: () => fetchData('https://api.themoviedb.org/3/trending/all/day'),
 	});
 

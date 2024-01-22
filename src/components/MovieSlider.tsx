@@ -24,8 +24,7 @@ export function MovieSlider({ results, title }: MovieSliderProps) {
 				{results?.map((movie, i) => (
 					<MovieCard
 						movie={movie}
-						uniqueValue={movie.poster_path + i}
-						key={movie.id}
+						key={movie.id + i + title + Math.random()}
 					/>
 				))}
 				<ArrowRight
