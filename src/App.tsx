@@ -1,14 +1,14 @@
 // import movies from '../db/movies.json';
 import { MovieSlider } from '@/components/MovieSlider';
 import { useQueries } from '@tanstack/react-query';
-import { User } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-import { auth } from '../firebase/firebase';
 import './App.css';
 import fetchData from './api/fetchData';
 import { TopHeader } from './components/TopHeader';
 import LoadingSpinner from './components/spinner';
 import { Button } from './components/ui/button';
+import { useStore } from './store/user-store';
+import { useEffect } from 'react';
+import { auth } from '../firebase/firebase';
 
 function App() {
 	const [popular, topRated, trending, upcoming] = useQueries({
@@ -44,12 +44,16 @@ function App() {
 		],
 	});
 
-	const [user, setUser] = useState<User | null>(null);
+	const user = useStore((state) => state.user);
+	const setUser = useStore((state) => state.setUser);
 
 	useEffect(() => {
-		auth.authStateReady().then(() => {
+		if (auth?.currentUser) {
 			setUser(auth.currentUser);
-		});
+		}
+
+		console.log('called');
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

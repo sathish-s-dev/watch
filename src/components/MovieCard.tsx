@@ -1,12 +1,13 @@
-import { Card, CardFooter } from '@/components/ui/card';
-import { Show } from '@/types';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Heart } from 'react-feather';
-import { Button } from './ui/button';
-import { SyntheticEvent, useState } from 'react';
 import addToFavourite from '@/api/addToFavourite';
-import { auth } from '../../firebase/firebase';
+import { Card, CardFooter } from '@/components/ui/card';
+import { useStore } from '@/store/user-store';
+import { Show } from '@/types';
+import { motion } from 'framer-motion';
+import { SyntheticEvent, useState } from 'react';
+import { Heart } from 'react-feather';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Button } from './ui/button';
 
 const movieCard = {
 	initial: {
@@ -20,30 +21,29 @@ const movieCard = {
 	},
 };
 
-const MovieCard = ({
-	movie,
-	uniqueValue,
-}: {
-	movie: Show;
-	uniqueValue: string;
-}) => {
+const MovieCard = ({ movie }: { movie: Show }) => {
 	const router = useNavigate();
 
 	const [fav, setFav] = useState(false);
 
+	const user = useStore((state) => state.user);
+
 	const addToFavourites = async (e: SyntheticEvent) => {
 		e.stopPropagation();
-		if (auth?.currentUser) {
-			const data = await addToFavourite(auth.currentUser?.uid, movie);
-			setFav(!fav);
-			console.log('fav', data);
+		if (!user?.uid) {
+			toast.error('Please login to add favourites', {
+				position: 'top-center',
+			});
+			return;
 		}
+		const data = await addToFavourite(user!.uid, movie);
+		setFav(!fav);
+		console.log('fav', data);
 	};
 
 	return (
 		<motion.div
 			variants={movieCard}
-			key={movie.id + uniqueValue}
 			whileHover={{
 				rotate: 0,
 				transition: {

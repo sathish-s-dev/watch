@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Response {
 	page: number;
 	results: Show[];
@@ -81,4 +83,11 @@ interface Productioncompany {
 interface Genre {
 	id: number;
 	name: string;
+}
+
+export interface TLink {
+	id: string;
+	title: string;
+	path: string;
+	icon?: ReactNode;
 }
