@@ -5,7 +5,6 @@ import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../firebase/firebase';
 import { TopHeader } from '@/components/TopHeader';
-import { useStore } from '@/store/user-store';
 
 const Favourites = () => {
 	const [favouriteMovies, setFavouriteMovies] = useState<Show[]>([]);
@@ -23,11 +22,10 @@ const Favourites = () => {
 
 		return () => unsubscribe();
 	}, []);
-	const user = useStore((state) => state.user);
 
 	return (
 		<main className='flex flex-col h-full w-full'>
-			<TopHeader user={user} />
+			<TopHeader />
 			<div className='px-6'>
 				<h1 className='text-2xl'>Favourites Movies</h1>
 				<div className='pt-10'>
