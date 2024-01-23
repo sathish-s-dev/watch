@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface Response {
 	page: number;
@@ -80,7 +80,7 @@ interface Productioncompany {
 	origin_country: string;
 }
 
-interface Genre {
+export interface Genre {
 	id: number;
 	name: string;
 }

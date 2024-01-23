@@ -1,10 +1,12 @@
+import { useStore } from '@/store/user-store';
+import { signOut } from 'firebase/auth';
 import { Bell, Search } from 'react-feather';
 import { Link } from 'react-router-dom';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { User, signOut } from 'firebase/auth';
 import { auth } from '../../firebase/firebase';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
-export function TopHeader({ user }: { user: User | null }) {
+export function TopHeader() {
+	const user = useStore((state) => state.user);
 	return (
 		<div className='flex justify-between px-6 py-6'>
 			<div className='flex space-x-6'>

@@ -20,7 +20,7 @@ export function Header() {
 	const user = useStore((state) => state.user);
 
 	return (
-		<header className='grid grid-cols-2 md:grid-cols-1 h-full gap-y-10 content-start py-10'>
+		<header className='grid grid-cols-2 md:grid-cols-1 h-full gap-y-10 content-start py-10 overflow-scroll'>
 			<Link
 				to='/'
 				className='flex px-6'>

@@ -1,6 +1,4 @@
-import { Response } from '@/types';
-
-const fetchData = async (url: string): Promise<Response> => {
+const fetchData = async <T>(url: string): Promise<T> => {
 	// const url = `https://api.themoviedb.org/3/trending/all/day`;
 
 	console.log(url);
