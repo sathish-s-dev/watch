@@ -1,14 +1,10 @@
 // import movies from '../db/movies.json';
 import { MovieSlider } from '@/components/MovieSlider';
 import { useQueries } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { auth } from '../firebase/firebase';
 import './App.css';
 import fetchData from './api/fetchData';
 import { TopHeader } from './components/TopHeader';
-import LoadingSpinner from './components/spinner';
 import { Button } from './components/ui/button';
-import { useStore } from './store/user-store';
 import { Response } from './types';
 
 function App() {
@@ -45,14 +41,7 @@ function App() {
 		],
 	});
 
-	const setUser = useStore((state) => state.setUser);
-
-	useEffect(() => {
-		if (auth?.currentUser) {
-			setUser(auth.currentUser);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	
 
 	return (
 		<main className='overflow-x-hidden h-screen no-scrollbar overflow-y-scroll'>
@@ -65,28 +54,22 @@ function App() {
 				</div>
 			</div>
 
-			{popular.isLoading ? (
-				<LoadingSpinner />
-			) : (
-				<>
-					<MovieSlider
-						results={trending?.data?.results}
-						title='Trending Movies'
-					/>
-					<MovieSlider
-						results={upcoming?.data?.results}
-						title='Upcoming Movies'
-					/>
-					<MovieSlider
-						results={popular?.data?.results}
-						title='Popular Movies'
-					/>
-					<MovieSlider
-						results={topRated?.data?.results}
-						title='Top Rated Movies'
-					/>
-				</>
-			)}
+			<MovieSlider
+				results={trending?.data?.results}
+				title='Trending Movies'
+			/>
+			<MovieSlider
+				results={upcoming?.data?.results}
+				title='Upcoming Movies'
+			/>
+			<MovieSlider
+				results={popular?.data?.results}
+				title='Popular Movies'
+			/>
+			<MovieSlider
+				results={topRated?.data?.results}
+				title='Top Rated Movies'
+			/>
 		</main>
 	);
 }

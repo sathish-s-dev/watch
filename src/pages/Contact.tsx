@@ -10,24 +10,14 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ChangeEvent, useState } from 'react';
-import { Send } from 'react-feather';
 import { motion } from 'framer-motion';
+import { ElementRef, useRef } from 'react';
+import { Send } from 'react-feather';
 
 const Contact = () => {
-	const [user, setUser] = useState({
-		name: '',
-		email: '',
-		message: '',
-	});
-
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setUser({
-			...user,
-			[e.target.name]: e.target.value,
-		});
-	};
-
+	const nameRef = useRef<ElementRef<'input'>>(null);
+	const emailRef = useRef<ElementRef<'input'>>(null);
+	const messageRef = useRef<ElementRef<'textarea'>>(null);
 	return (
 		<div className='grid relative place-items-center h-[80vh] md:h-screen'>
 			<motion.div
@@ -48,7 +38,11 @@ const Contact = () => {
 						action=''
 						onSubmit={(e) => {
 							e.preventDefault();
-							console.log(user);
+							console.log(
+								nameRef.current?.value,
+								emailRef.current?.value,
+								messageRef.current?.value
+							);
 						}}>
 						<CardContent className='grid gap-4'>
 							<div className='grid gap-2'>
@@ -57,8 +51,7 @@ const Contact = () => {
 									id='name'
 									type='text'
 									name='name'
-									onChange={handleChange}
-									value={user.name}
+									ref={nameRef}
 									placeholder='John doe'
 									className='placeholder:text-slate-400'
 								/>
@@ -69,21 +62,19 @@ const Contact = () => {
 									id='email'
 									type='email'
 									name='email'
-									onChange={handleChange}
-									value={user.email}
+									ref={emailRef}
 									placeholder='m@example.com'
 									className='placeholder:text-slate-400'
 								/>
 							</div>
 							<div className='grid gap-2'>
-								<Label htmlFor='message'>mesage</Label>
-								<Input
+								<Label htmlFor='message'>Mesage</Label>
+								<textarea
 									name='Message'
-									value={user.message}
 									id='message'
-									onChange={handleChange}
+									ref={messageRef}
 									placeholder='hello i am interested in ...'
-									className='placeholder:text-slate-400 h-24'
+									className='placeholder:text-slate-400 h-24 bg-inherit border-white border px-4'
 								/>
 							</div>
 						</CardContent>

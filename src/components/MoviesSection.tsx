@@ -1,8 +1,7 @@
 import MovieCard from '@/components/MovieCard';
-// import { useEffect, useState } from 'react';
-// import { Response } from '../types';
 import { MovieContainer } from '@/components/MoviesContainer';
 import { Response } from '@/types';
+import SkeletonMovieList from './skeleton/SkeletonMovieList';
 
 export function MoviesSection({
 	data,
@@ -15,12 +14,16 @@ export function MoviesSection({
 		<div className='overflow-y-scroll no-scrollbar h-full pb-20 px-6'>
 			<h2 className='text-2xl block font-bold my-4'>{title}</h2>
 			<MovieContainer>
-				{data?.results.map((movie, i) => (
-					<MovieCard
-						key={movie.id + i + title + Math.random}
-						movie={movie}
-					/>
-				))}
+				{data ? (
+					data?.results.map((movie, i) => (
+						<MovieCard
+							key={movie.id + i + title + Math.random}
+							movie={movie}
+						/>
+					))
+				) : (
+					<SkeletonMovieList />
+				)}
 			</MovieContainer>
 		</div>
 	);

@@ -24,7 +24,7 @@ const MovieDetails = () => {
 
 	if (isLoading) return <LoadingSpinner />;
 
-	return <MovieCard movie={data && data} />;
+	return <MovieCard movie={data} />;
 };
 
 export default MovieDetails;

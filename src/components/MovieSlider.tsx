@@ -1,9 +1,9 @@
+import { movieContainerVariants } from '@/lib/animation/variants';
 import { Show } from '@/types';
 import { motion } from 'framer-motion';
 import MovieCard from './MovieCard';
-import { ArrowRight } from 'react-feather';
+import SkeletonMovieList from './skeleton/SkeletonMovieList';
 import { Separator } from './ui/separator';
-import { movieContainerVariants } from '@/lib/animation/variants';
 
 type MovieSliderProps = {
 	results: Show[] | undefined;
@@ -11,7 +11,6 @@ type MovieSliderProps = {
 };
 
 export function MovieSlider({ results, title }: MovieSliderProps) {
-	// console.log(results);
 	return (
 		<div className='grid gap-y-3 my-6 w-full overflow-hidden'>
 			<h3 className='text-xl font-bold px-6'>{title}</h3>
@@ -21,19 +20,23 @@ export function MovieSlider({ results, title }: MovieSliderProps) {
 				initial='initial'
 				animate='animate'
 				className='flex overflow-x-scroll px-6 space-x-6 py-6 scroll-smooth no-scrollbar'>
-				{results?.map((movie, i) => (
-					<MovieCard
-						movie={movie}
-						key={movie.id + i + title + Math.random()}
-					/>
-				))}
-				<ArrowRight
-					className='w-64 h-64'
-					size={100}
-					fill='#fff'
-					color='#fff'
+				<MovieList
+					results={results}
+					title={title}
 				/>
 			</motion.div>
 		</div>
 	);
+}
+
+function MovieList({ results, title }: MovieSliderProps) {
+	if (!results) {
+		return <SkeletonMovieList />;
+	}
+	return results?.map((movie, i) => (
+		<MovieCard
+			movie={movie}
+			key={movie.id + i + title + Math.random()}
+		/>
+	));
 }

@@ -5,6 +5,7 @@ import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../firebase/firebase';
 import { TopHeader } from '@/components/TopHeader';
+import { toast } from 'react-toastify';
 
 const Favourites = () => {
 	const [favouriteMovies, setFavouriteMovies] = useState<Show[]>([]);
@@ -20,7 +21,18 @@ const Favourites = () => {
 			setFavouriteMovies(result);
 		});
 
+		console.log(auth.currentUser);
+
 		return () => unsubscribe();
+	}, []);
+
+	useEffect(() => {
+		auth
+			.authStateReady()
+			.then(() => {
+				if (!auth.currentUser) toast.warn('please sign to add movies');
+			})
+			.catch((e) => console.log(e));
 	}, []);
 
 	return (
@@ -29,7 +41,7 @@ const Favourites = () => {
 			<div className='px-6'>
 				<h1 className='text-2xl'>Favourites Movies</h1>
 				<div className='pt-10'>
-					{favouriteMovies.length === 0 ? (
+					{favouriteMovies.length === 0 || !auth.currentUser ? (
 						<p className='text-lg'>you have no favourite movies</p>
 					) : (
 						<MovieContainer>
