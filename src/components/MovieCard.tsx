@@ -50,12 +50,12 @@ const MovieCard = ({ movie }: { movie: Show }) => {
 					duration: 0.3,
 				},
 			}}
-			className='flex-shrink-0'>
+			className='flex-shrink-0 overflow-hidden'>
 			<Card
 				onClick={() => {
 					router(`/movie-details/${movie.id}/${movie.media_type}`);
 				}}
-				className='w-[250px] group transition-transform duration-500 max-w-[200px] relative overflow-hidden bg-slate-50/5 text-slate-50 border-slate-50/10 cursor-pointer'>
+				className='w-[200px] group transition-transform duration-500 relative overflow-hidden rounded-lg bg-slate-50/5 text-slate-50 border-slate-50/10 cursor-pointer'>
 				<Button
 					onClick={addToFavourites}
 					className='text-red-600 py-1 px-2 absolute top-0 right-0 bg-slate-100/20 backdrop-blur-xl z-10'
@@ -65,15 +65,17 @@ const MovieCard = ({ movie }: { movie: Show }) => {
 						fill={fav ? 'rgb(220 38 38)' : 'none'}
 					/>
 				</Button>
-				<img
-					src={
-						!movie.poster_path
-							? '/images/poster-placeholder.webp'
-							: `https://image.tmdb.org/t/p/original${movie.poster_path}`
-					}
-					className='pointer-events-none w-full  max-h-[250px] group-hover:scale-110 object-cover max-w-[250px] transition-all duration-300'
-					alt=''
-				/>
+				<div className='w-full h-full overflow-hidden rounded-lg'>
+					<img
+						src={
+							!movie.poster_path
+								? '/images/poster-placeholder.webp'
+								: `https://image.tmdb.org/t/p/original${movie.poster_path}`
+						}
+						className='pointer-events-none w-full aspect-[3/4] group-hover:scale-110 object-cover max-w-[200px] transition-all duration-300'
+						alt={movie.title || movie.name}
+					/>
+				</div>
 				<CardFooter className='w-full flex-col items-start space-y-2 py-2 absolute bottom-0 bg-slate-900/10 backdrop-blur-xl text-slate-100'>
 					<p className=' font-semibold line-clamp-1 text-sm'>
 						{movie.title || movie.name}
