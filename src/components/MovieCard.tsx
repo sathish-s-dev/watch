@@ -12,11 +12,10 @@ import { Button } from './ui/button';
 const movieCard = {
 	initial: {
 		opacity: 0,
-		y: -150,
+		y: 50,
 	},
-	animate: {
+	whileInView: {
 		opacity: 1,
-		rotate: 1,
 		y: 0,
 	},
 };
@@ -44,18 +43,14 @@ const MovieCard = ({ movie }: { movie: Show }) => {
 	return (
 		<motion.div
 			variants={movieCard}
-			whileHover={{
-				rotate: 0,
-				transition: {
-					duration: 0.3,
-				},
-			}}
+			initial={'initial'}
+			whileInView={'whileInView'}
 			className='flex-shrink-0 overflow-hidden'>
 			<Card
 				onClick={() => {
 					router(`/movie-details/${movie.id}/${movie.media_type}`);
 				}}
-				className='w-[200px] group transition-transform duration-500 relative overflow-hidden rounded-lg bg-slate-50/5 text-slate-50 border-slate-50/10 cursor-pointer'>
+				className='w-[250px] group transition-transform duration-500 relative overflow-hidden rounded-lg bg-slate-50/5 text-slate-50 border-slate-50/10 cursor-pointer'>
 				<Button
 					onClick={addToFavourites}
 					className='text-red-600 py-1 px-2 absolute top-0 right-0 bg-slate-100/20 backdrop-blur-xl z-10'
@@ -72,7 +67,7 @@ const MovieCard = ({ movie }: { movie: Show }) => {
 								? '/images/poster-placeholder.webp'
 								: `https://image.tmdb.org/t/p/original${movie.poster_path}`
 						}
-						className='pointer-events-none w-full aspect-[3/4] group-hover:scale-110 object-cover max-w-[200px] transition-all duration-300'
+						className='pointer-events-none w-full aspect-[3/4] group-hover:scale-110 object-cover transition-all duration-300'
 						alt={movie.title || movie.name}
 					/>
 				</div>
