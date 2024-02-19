@@ -13,7 +13,7 @@ const Layout = () => {
 		});
 	}, [setUser]);
 	return (
-		<div className='grid md:grid-cols-[200px_1fr] grid-cols-1 h-full min-h-screen bg-dark border text-white content-start md:content-stretch'>
+		<div className='grid md:grid-cols-[200px_1fr] grid-cols-1 no-scrollbar min-h-screen h-screen overflow-auto bg-dark border text-white content-start md:content-stretch'>
 			<Header />
 			<Outlet />
 		</div>

@@ -4,21 +4,26 @@ import { useStore } from '@/store/user-store';
 import { Show } from '@/types';
 import { motion } from 'framer-motion';
 import { SyntheticEvent, useState } from 'react';
-import { Heart } from 'react-feather';
+import { Heart, Star } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button } from './ui/button';
+import { movieContainerVariants } from '@/lib/animation/variants';
 
-const movieCard = {
-	initial: {
-		opacity: 0,
-		y: 50,
-	},
-	whileInView: {
-		opacity: 1,
-		y: 0,
-	},
-};
+// const movieCard = {
+// 	initial: {
+// 		opacity: 0,
+// 		y: 50,
+// 	},
+// 	animate: {
+// 		opacity: 1,
+// 		y: 0,
+// 	},
+// 	whileInView: {
+// 		opacity: 1,
+// 		y: 0,
+// 	},
+// };
 
 const MovieCard = ({ movie }: { movie: Show }) => {
 	const router = useNavigate();
@@ -42,7 +47,7 @@ const MovieCard = ({ movie }: { movie: Show }) => {
 
 	return (
 		<motion.div
-			variants={movieCard}
+			variants={movieContainerVariants}
 			initial={'initial'}
 			whileInView={'whileInView'}
 			className='flex-shrink-0 overflow-hidden'>
@@ -65,19 +70,30 @@ const MovieCard = ({ movie }: { movie: Show }) => {
 						src={
 							!movie.poster_path
 								? '/images/poster-placeholder.webp'
-								: `https://image.tmdb.org/t/p/original${movie.poster_path}`
+								: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
 						}
 						className='pointer-events-none w-full aspect-[3/4] group-hover:scale-110 object-cover transition-all duration-300'
 						alt={movie.title || movie.name}
 					/>
 				</div>
-				<CardFooter className='w-full flex-col items-start space-y-2 py-2 absolute bottom-0 bg-slate-900/10 backdrop-blur-xl text-slate-100'>
-					<p className=' font-semibold line-clamp-1 text-sm'>
-						{movie.title || movie.name}
-					</p>
-					<p className='text-xs line-clamp-1'>
-						{movie.original_name || movie.original_title}
-					</p>
+				<CardFooter className='w-full justify-between flex items-start space-y-2 py-4 absolute bottom-0 bg-slate-900/10 backdrop-blur-xl text-slate-100'>
+					<div className='flex flex-col gap-2'>
+						<p className=' font-semibold line-clamp-1 text-sm'>
+							{movie.title || movie.name}
+						</p>
+						<p className='text-xs line-clamp-1'>
+							{movie.original_name || movie.original_title}
+						</p>
+					</div>
+					<div className='flex items-center gap-1'>
+						<Star
+							fill='rgb(250 204 21)'
+							stroke='0'
+						/>{' '}
+						<p className='text-xs  line-clamp-1 text-white'>
+							{movie.vote_average.toFixed(1)} / 10
+						</p>
+					</div>
 				</CardFooter>
 			</Card>
 		</motion.div>
