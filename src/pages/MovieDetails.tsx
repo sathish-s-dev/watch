@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Genre, Productioncompany, ShowDetails } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { Heart, Star } from "react-feather";
+import { Star } from "react-feather";
 import { Link, useParams } from "react-router-dom";
 
 const MovieDetails = () => {
