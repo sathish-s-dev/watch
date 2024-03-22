@@ -12,7 +12,7 @@ export function MoviesSection({
 }) {
 	return (
 		<div className='overflow-y-scroll no-scrollbar h-full pb-20 px-6'>
-			<h2 className='text-2xl block font-bold my-4'>{title}</h2>
+			<h2 className='text-2xl block font-semibold capitalize my-4'>{title}</h2>
 			<MovieContainer>
 				{data ? (
 					data?.results.map((movie, i) => (

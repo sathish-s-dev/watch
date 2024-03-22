@@ -14,7 +14,6 @@ const Trending = () => {
 	return (
 		<main className='h-screen overflow-hidden flex flex-col space-y-3'>
 			<TopHeader />
-
 			<MoviesSection
 				title='Trending at this moment'
 				data={data}

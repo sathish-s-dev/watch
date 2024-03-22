@@ -73,7 +73,7 @@ interface Productioncountry {
 	name: string;
 }
 
-interface Productioncompany {
+export interface Productioncompany {
 	id: number;
 	logo_path?: string;
 	name: string;
