@@ -53,7 +53,7 @@ function MovieCard({ movie }: { movie: ShowDetails | undefined }) {
             />
           </div>
           <div className="grid gap-y-4 content-start text-slate-200">
-            <Link to={movie.homepage}>
+            <Link to={movie.homepage} target="_blank">
               <p className="text-4xl font-bold self-start text-white">
                 {movie.title || movie.name}
               </p>
